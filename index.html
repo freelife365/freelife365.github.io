@@ -152,21 +152,59 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/21/mysql_tutorials/">MySQL基础操作</a>
+      <a class="article-title" href="/2017/12/04/mysql_tutorials/">MySQL基础操作</a>
     </h1>
   
 
         
-        <a href="/2017/11/21/mysql_tutorials/" class="archive-article-date">
-  	<time datetime="2017-11-21T09:23:54.168Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-21</time>
+        <a href="/2017/12/04/mysql_tutorials/" class="archive-article-date">
+  	<time datetime="2017-12-04T09:26:53.886Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-显示数据库列表"><a href="#1-显示数据库列表" class="headerlink" title="1. 显示数据库列表"></a>1. 显示数据库列表</h3><p>show databases;</p>
-<h3 id="2-显示库中得数据表"><a href="#2-显示库中得数据表" class="headerlink" title="2. 显示库中得数据表"></a>2. 显示库中得数据表</h3><p>use mysql;<br>show tables;</p>
+        <h3 id="1-显示数据库列表"><a href="#1-显示数据库列表" class="headerlink" title="1. 显示数据库列表"></a>1. 显示数据库列表</h3><p><code>show databases;</code><br>刚开始只有二个数据库，mysql和test；mysql库很重要，它里面有mysql的系统信息。<br>我们改密码和新增用户，实际上就是用这个库进行操作。</p>
+<h3 id="2-显示库中得数据表"><a href="#2-显示库中得数据表" class="headerlink" title="2. 显示库中得数据表"></a>2. 显示库中得数据表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+<h3 id="3-显示数据表的结构"><a href="#3-显示数据表的结构" class="headerlink" title="3.显示数据表的结构"></a>3.显示数据表的结构</h3><p><code>describe 表名;</code></p>
+<h3 id="4-建库"><a href="#4-建库" class="headerlink" title="4.建库"></a>4.建库</h3><p><code>create database 库名;</code></p>
+<h3 id="5-建表"><a href="#5-建表" class="headerlink" title="5.建表"></a>5.建表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use 库名;</span><br><span class="line">create table 表名(字段设定列表);</span><br></pre></td></tr></table></figure>
+<h3 id="6-删库和删表"><a href="#6-删库和删表" class="headerlink" title="6.删库和删表"></a>6.删库和删表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop database 库名;</span><br><span class="line">drop table 表名;</span><br></pre></td></tr></table></figure>
+<h3 id="7-将表中记录清空"><a href="#7-将表中记录清空" class="headerlink" title="7.将表中记录清空"></a>7.将表中记录清空</h3><p><code>delete from 表名;</code></p>
+<h3 id="8-对表中记录的操作"><a href="#8-对表中记录的操作" class="headerlink" title="8.对表中记录的操作"></a>8.对表中记录的操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名；</span><br><span class="line">update tname set id=3 where id=2;</span><br><span class="line">insert into tname(id) value(2);</span><br><span class="line">db.tname.insert(&#123;id:2&#125;)</span><br><span class="line">delete from tname where id=2;</span><br></pre></td></tr></table></figure>
+<h2 id="MYSQL-性能优化"><a href="#MYSQL-性能优化" class="headerlink" title="MYSQL 性能优化"></a>MYSQL 性能优化</h2><ol>
+<li>Mysql 查询缓存<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//查询缓存不开启</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user WHERE signup_date &gt;= CURDATE()&quot;);</span><br><span class="line"></span><br><span class="line">//开启查询缓存</span><br><span class="line">$today = date(&quot;Y-m-d&quot;);</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user WHERE signup_date &gt;= &apos;$today&apos;&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>上面两条sql语句的差别就是CURDATE()，MySQL的查询缓存对这个函数不起作用。所以，<br>像NOW(), RADN()或其他诸如此类的SQL函数都不会开启查询缓存。因为，<br>这些函数的返回是不定的，易变的。所以，你需要的就是用一个变量来代替MySQL的函数，从而开启缓存。</p>
+<ol>
+<li>EXPLAIN你的SELECT查询<br>使用EXPLAIN关键字，可以让你知道Mysql是如何处理你的SQL语句的。这可以帮助你<br>分析查询语句或表结构的性能瓶颈。</li>
+</ol>
+<p>EXPLAIN的查询结果还会告诉你，你的索引主键被如何利用的，你的数据表是如何被搜索和排序的。。。</p>
+<ol>
+<li><p>当只要一行数据时使用LIMIT1</p>
+</li>
+<li><p>为搜索字段建索引<br>索引并不一定就是给主键或者唯一的字段。如果在你的表中，<br>有某个字段你总是会经常用来做搜索，那么，请为其建立索引吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT count(*) FROM `users` WHERE last_name LIKE `a%` /*sql_no_cache*/;</span><br><span class="line"></span><br><span class="line">ALTER TABLE `users` ADD INDEX(`last_name`);</span><br><span class="line"></span><br><span class="line">SELECT count(*) FROM `users` WHERE last_name LIKE `a%` /*sql_no_cache*/;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>另外，你应该也需要知道什么样的搜索是不能使用正常的索引的。例如，<br>当你需要在一篇大得文章中搜索一个词时，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE post_content LIKE &apos;%apple%&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>索引可能是没有意义的，你可能需要使用MySQL全文索引或者自己做一个索引（<br>比如，搜索关键字或Tag之类的）</p>
+<ol>
+<li><p>在Join表的时候使用相当类型的例，并将其索引<br>如果你的应用程序有很多JOIN查询，你应该确认两个表中Join的字段是被建过索引的。这样，<br>MySQL内部会启动为你优化join的SQL语句的机制。<br>而且，这些被用来Join的字段，应该是相同的类型。例如，<br>如果你要把DECIMAL字段和一个INT字段Join在一起，MySQL就无法使用它们的索引。<br>对于那些STRING类型，还需要有相同的字符集才行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$r = mysql_query(&quot;SELECT company_name FROM users</span><br><span class="line">    LEFT JOIN companies ON (users.state = companies.state)</span><br><span class="line">    WHERE users.id= = $user_id);</span><br><span class="line">两个state 字段应该是被建过索引的，而且应该是相同类型，相同字符集</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>千万不要ORDER BY RAND()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//千万不要这么做</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user ORDER BY RAND() LIMIT 1&quot;);</span><br><span class="line"></span><br><span class="line">//这样会更好</span><br><span class="line">$r = mysql_query(&quot;SELECT count(*) FROM user&quot;);</span><br><span class="line">$d = mysql_fetch_now($r);</span><br><span class="line">$rand = mt_rand(0, $d[0] - 1);</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user LIMIT $rand, 1&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>尽可能的使用NOT NULL</p>
+</li>
+<li><p>把IP地址存为UNSIGNED INT</p>
+</li>
+<li><p>固定长度的表会更快.<br>如果表中的所有字段有事“固定长度”的，整个表会被认为是”static”或”fixed-length”。例如，<br>表中没有如下类型的字段”VARCHAR”, “TEXT”, “BLOB”.</p>
+</li>
+</ol>
 
       
 
@@ -194,7 +232,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/21/mysql_tutorials/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/12/04/mysql_tutorials/">展开全文 >></a>
         </p>
       
 
@@ -872,11 +910,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">qml</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">开发规范</a>
+                <a href="javascript:void(0)" class="js-tag color4">gcc</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -884,7 +918,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">gcc</a>
+                <a href="javascript:void(0)" class="js-tag color4">qml</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">开发规范</a>
               </li>
             
             <div class="clearfix"></div>

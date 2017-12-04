@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://cppmap.com">
-  <title>GCC常用选项 | Wilbur&#39;s blogs</title>
+  <title>MySQL基础操作 | Wilbur&#39;s blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="编译预编译第一步是进行预编译，使用-E参数可以让GCC在预处理结束后停止编译过程。比如：1gcc -E hello.c -o hello.i 预处理的宏定义插入到hello.i中。 目标代码第二步是将hello.i编译为目标代码，这可以通过使用-c参数来完成。比如： 1gcc -c hello.i -o hello.o">
-<meta name="keywords" content="linux,gcc">
+  <meta name="description" content="1. 显示数据库列表show databases;刚开始只有二个数据库，mysql和test；mysql库很重要，它里面有mysql的系统信息。我们改密码和新增用户，实际上就是用这个库进行操作。 2. 显示库中得数据表12use mysql;show tables; 3.显示数据表的结构describe 表名; 4.建">
+<meta name="keywords" content="linux,mysql">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GCC常用选项">
-<meta property="og:url" content="http://cppmap.com/2017/08/29/gcc-common-options/index.html">
+<meta property="og:title" content="MySQL基础操作">
+<meta property="og:url" content="http://cppmap.com/2017/12/04/mysql_tutorials/index.html">
 <meta property="og:site_name" content="Wilbur&#39;s blogs">
-<meta property="og:description" content="编译预编译第一步是进行预编译，使用-E参数可以让GCC在预处理结束后停止编译过程。比如：1gcc -E hello.c -o hello.i 预处理的宏定义插入到hello.i中。 目标代码第二步是将hello.i编译为目标代码，这可以通过使用-c参数来完成。比如： 1gcc -c hello.i -o hello.o 也可以通过源文件直接生成：gcc -c hello.c 可执行文件第三步是将生">
-<meta property="og:updated_time" content="2017-08-29T11:15:38.000Z">
+<meta property="og:description" content="1. 显示数据库列表show databases;刚开始只有二个数据库，mysql和test；mysql库很重要，它里面有mysql的系统信息。我们改密码和新增用户，实际上就是用这个库进行操作。 2. 显示库中得数据表12use mysql;show tables; 3.显示数据表的结构describe 表名; 4.建库create database 库名; 5.建表12use 库名;create">
+<meta property="og:updated_time" content="2017-12-04T09:26:53.886Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GCC常用选项">
-<meta name="twitter:description" content="编译预编译第一步是进行预编译，使用-E参数可以让GCC在预处理结束后停止编译过程。比如：1gcc -E hello.c -o hello.i 预处理的宏定义插入到hello.i中。 目标代码第二步是将hello.i编译为目标代码，这可以通过使用-c参数来完成。比如： 1gcc -c hello.i -o hello.o 也可以通过源文件直接生成：gcc -c hello.c 可执行文件第三步是将生">
+<meta name="twitter:title" content="MySQL基础操作">
+<meta name="twitter:description" content="1. 显示数据库列表show databases;刚开始只有二个数据库，mysql和test；mysql库很重要，它里面有mysql的系统信息。我们改密码和新增用户，实际上就是用这个库进行操作。 2. 显示库中得数据表12use mysql;show tables; 3.显示数据表的结构describe 表名; 4.建库create database 库名; 5.建表12use 库名;create">
   
     <link rel="alternative" href="/atom.xml" title="Wilbur&#39;s blogs" type="application/atom+xml">
   
@@ -144,83 +144,66 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-gcc-common-options" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-mysql_tutorials" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      GCC常用选项
+      MySQL基础操作
     </h1>
   
 
         
-        <a href="/2017/08/29/gcc-common-options/" class="archive-article-date">
-  	<time datetime="2017-08-29T11:15:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-29</time>
+        <a href="/2017/12/04/mysql_tutorials/" class="archive-article-date">
+  	<time datetime="2017-12-04T09:26:53.886Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-04</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h3 id="预编译"><a href="#预编译" class="headerlink" title="预编译"></a>预编译</h3><p>第一步是进行预编译，使用-E参数可以让GCC在预处理结束后停止编译过程。比如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -E hello.c -o hello.i</span><br></pre></td></tr></table></figure></p>
-<p>预处理的宏定义插入到hello.i中。</p>
-<h3 id="目标代码"><a href="#目标代码" class="headerlink" title="目标代码"></a>目标代码</h3><p>第二步是将hello.i编译为目标代码，这可以通过使用-c参数来完成。比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -c hello.i -o hello.o</span><br></pre></td></tr></table></figure>
-<p>也可以通过源文件直接生成：gcc -c hello.c</p>
-<h3 id="可执行文件"><a href="#可执行文件" class="headerlink" title="可执行文件"></a>可执行文件</h3><p>第三步是将生成的目标文件链接成可执行文件，比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc hello.o -o hello</span><br></pre></td></tr></table></figure>
-<p>也可以通过源文件直接生成：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o hello hello.c</span><br></pre></td></tr></table></figure></p>
-<p>警告(warning)</p>
-<ul>
-<li>1、-pedantic 选项，那么使用了扩展语法的地方将产生相应的警告信息。</li>
-<li>2、-Wall 使用它能够使GCC产生尽可能多的警告信息。</li>
-<li>3、-Werror，它要求GCC将所有的警告当成错误进行处理。所以如果我们对自己的代码提高要求的话，就尽量加上这个参数吧。warning也不要放过。</li>
-<li>4、-w，这个和Werror刚好相反，它将禁止所有的报警。慎用。</li>
-</ul>
-<h2 id="库依赖"><a href="#库依赖" class="headerlink" title="库依赖"></a>库依赖</h2><h3 id="默认寻址"><a href="#默认寻址" class="headerlink" title="默认寻址"></a>默认寻址</h3><p>1、Linux下的大多数函数都默认:</p>
-<ul>
-<li>头文件放到/usr/include/目录下。</li>
-<li>库文件放到/usr/lib/目录下。</li>
-</ul>
-<h3 id="自定义寻址"><a href="#自定义寻址" class="headerlink" title="自定义寻址"></a>自定义寻址</h3><p>1、GCC在编译时可以自定义查找所需要的头文件和库文件。</p>
-<p>-I选项可以向GCC的头文件搜索路径中添加新的目录。</p>
-<p>例如，如果在/home/zhengw/include/目录下有编译时所需要的头文件，为了让GCC能够顺利地找到它们，就可以使用-I选项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o test test.c -I /home/zhengw/include</span><br></pre></td></tr></table></figure>
-<p>-L选项向GCC的库文件搜索路径中添加新的目录</p>
-<p>例如，如果在/home/zhengw/lib/目录下有链接时所需要的库文件libfoo.so，为了让GCC能够顺利地找到它，可以使用下面的命令</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o test test.c -L /home/zhengw/lib -lfoo</span><br></pre></td></tr></table></figure>
-<p>值得好好解释一下的是-l选项，它指示GCC去连接库文件libfoo.so。</p>
-<p>Linux下的库文件在命名时有一个约定，那就是应该以lib三个字母开头，由于所有的库文件都遵循了同样的规范，因此在用-l选项指定链接的库文件名时可以省去lib三个字母，也就是说GCC在对-lfoo进行处理时，会自动去链接名为libfoo.so的文件。</p>
-<p>-static选项，强制使用静态链接库</p>
-<p>如果在/home/zhengw/lib/目录下有链接时所需要的库文件libfoo.so和libfoo.a。为了让GCC在链接时只用到静态链接库，可以使用下面的命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -o test test.c -L /home/zhengw/lib -static -lfoo</span><br></pre></td></tr></table></figure></p>
-<h2 id="编译优化"><a href="#编译优化" class="headerlink" title="编译优化"></a>编译优化</h2><h3 id="优化参数"><a href="#优化参数" class="headerlink" title="优化参数"></a>优化参数</h3><ul>
-<li>选项<code>-O</code>可以告诉GCC同时减小代码的长度和执行时间，其效果等价于<code>-O1</code>。<blockquote>
-<p>在这一级别上能够进行的优化类型虽然取决于目标处理器，但一般都会包括线程跳转（Thread Jump）和延迟退栈（Deferred Stack Pops）两种优化。</p>
-</blockquote>
+        <h3 id="1-显示数据库列表"><a href="#1-显示数据库列表" class="headerlink" title="1. 显示数据库列表"></a>1. 显示数据库列表</h3><p><code>show databases;</code><br>刚开始只有二个数据库，mysql和test；mysql库很重要，它里面有mysql的系统信息。<br>我们改密码和新增用户，实际上就是用这个库进行操作。</p>
+<h3 id="2-显示库中得数据表"><a href="#2-显示库中得数据表" class="headerlink" title="2. 显示库中得数据表"></a>2. 显示库中得数据表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use mysql;</span><br><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+<h3 id="3-显示数据表的结构"><a href="#3-显示数据表的结构" class="headerlink" title="3.显示数据表的结构"></a>3.显示数据表的结构</h3><p><code>describe 表名;</code></p>
+<h3 id="4-建库"><a href="#4-建库" class="headerlink" title="4.建库"></a>4.建库</h3><p><code>create database 库名;</code></p>
+<h3 id="5-建表"><a href="#5-建表" class="headerlink" title="5.建表"></a>5.建表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">use 库名;</span><br><span class="line">create table 表名(字段设定列表);</span><br></pre></td></tr></table></figure>
+<h3 id="6-删库和删表"><a href="#6-删库和删表" class="headerlink" title="6.删库和删表"></a>6.删库和删表</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">drop database 库名;</span><br><span class="line">drop table 表名;</span><br></pre></td></tr></table></figure>
+<h3 id="7-将表中记录清空"><a href="#7-将表中记录清空" class="headerlink" title="7.将表中记录清空"></a>7.将表中记录清空</h3><p><code>delete from 表名;</code></p>
+<h3 id="8-对表中记录的操作"><a href="#8-对表中记录的操作" class="headerlink" title="8.对表中记录的操作"></a>8.对表中记录的操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">select * from 表名；</span><br><span class="line">update tname set id=3 where id=2;</span><br><span class="line">insert into tname(id) value(2);</span><br><span class="line">db.tname.insert(&#123;id:2&#125;)</span><br><span class="line">delete from tname where id=2;</span><br></pre></td></tr></table></figure>
+<h2 id="MYSQL-性能优化"><a href="#MYSQL-性能优化" class="headerlink" title="MYSQL 性能优化"></a>MYSQL 性能优化</h2><ol>
+<li>Mysql 查询缓存<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//查询缓存不开启</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user WHERE signup_date &gt;= CURDATE()&quot;);</span><br><span class="line"></span><br><span class="line">//开启查询缓存</span><br><span class="line">$today = date(&quot;Y-m-d&quot;);</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user WHERE signup_date &gt;= &apos;$today&apos;&quot;);</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<ul>
-<li><p>选项<code>-O2</code>告诉GCC除了完成所有-O1级别的优化之外，同时还要进行一些额外的调整工作，如处理器指令调度等。</p>
+</ol>
+<p>上面两条sql语句的差别就是CURDATE()，MySQL的查询缓存对这个函数不起作用。所以，<br>像NOW(), RADN()或其他诸如此类的SQL函数都不会开启查询缓存。因为，<br>这些函数的返回是不定的，易变的。所以，你需要的就是用一个变量来代替MySQL的函数，从而开启缓存。</p>
+<ol>
+<li>EXPLAIN你的SELECT查询<br>使用EXPLAIN关键字，可以让你知道Mysql是如何处理你的SQL语句的。这可以帮助你<br>分析查询语句或表结构的性能瓶颈。</li>
+</ol>
+<p>EXPLAIN的查询结果还会告诉你，你的索引主键被如何利用的，你的数据表是如何被搜索和排序的。。。</p>
+<ol>
+<li><p>当只要一行数据时使用LIMIT1</p>
 </li>
-<li><p>选项<code>-O</code>3则除了完成所有<code>-O2</code>级别的优化之外，还包括循环展开和其它一些与处理器特性相关的优化工作。</p>
+<li><p>为搜索字段建索引<br>索引并不一定就是给主键或者唯一的字段。如果在你的表中，<br>有某个字段你总是会经常用来做搜索，那么，请为其建立索引吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT count(*) FROM `users` WHERE last_name LIKE `a%` /*sql_no_cache*/;</span><br><span class="line"></span><br><span class="line">ALTER TABLE `users` ADD INDEX(`last_name`);</span><br><span class="line"></span><br><span class="line">SELECT count(*) FROM `users` WHERE last_name LIKE `a%` /*sql_no_cache*/;</span><br></pre></td></tr></table></figure>
 </li>
-</ul>
-<p>通常来说，数字越大优化的等级越高，同时也就意味着程序的运行速度越快。</p>
-<p>许多Linux程序员都喜欢使用<code>-O2</code>选项，因为它在优化长度、编译时间和代码大小之间，取得了一个比较理想的平衡点。</p>
-<h2 id="优化注意事项"><a href="#优化注意事项" class="headerlink" title="优化注意事项"></a>优化注意事项</h2><p>优化虽然能够给程序带来更好的执行性能，但在如下一些场合中应该避免优化代码：</p>
-<ul>
-<li><p>一、程序开发的时候优化等级越高，消耗在编译上的时间就越长，因此在开发的时候最好不要使用优化选项，只有到软件发行或开发结束的时候，才考虑对最终生成的代码进行优化。</p>
+</ol>
+<p>另外，你应该也需要知道什么样的搜索是不能使用正常的索引的。例如，<br>当你需要在一篇大得文章中搜索一个词时，如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WHERE post_content LIKE &apos;%apple%&apos;;</span><br></pre></td></tr></table></figure></p>
+<p>索引可能是没有意义的，你可能需要使用MySQL全文索引或者自己做一个索引（<br>比如，搜索关键字或Tag之类的）</p>
+<ol>
+<li><p>在Join表的时候使用相当类型的例，并将其索引<br>如果你的应用程序有很多JOIN查询，你应该确认两个表中Join的字段是被建过索引的。这样，<br>MySQL内部会启动为你优化join的SQL语句的机制。<br>而且，这些被用来Join的字段，应该是相同的类型。例如，<br>如果你要把DECIMAL字段和一个INT字段Join在一起，MySQL就无法使用它们的索引。<br>对于那些STRING类型，还需要有相同的字符集才行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$r = mysql_query(&quot;SELECT company_name FROM users</span><br><span class="line">    LEFT JOIN companies ON (users.state = companies.state)</span><br><span class="line">    WHERE users.id= = $user_id);</span><br><span class="line">两个state 字段应该是被建过索引的，而且应该是相同类型，相同字符集</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>二、资源受限的时候一些优化选项会增加可执行代码的体积。如果程序在运行时能够申请到的内存资源非常紧张（如一些实时嵌入式设备），那就不要对代码进行优化，因为由这带来的负面影响可能会产生非常严重的后果。</p>
+<li><p>千万不要ORDER BY RAND()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//千万不要这么做</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user ORDER BY RAND() LIMIT 1&quot;);</span><br><span class="line"></span><br><span class="line">//这样会更好</span><br><span class="line">$r = mysql_query(&quot;SELECT count(*) FROM user&quot;);</span><br><span class="line">$d = mysql_fetch_now($r);</span><br><span class="line">$rand = mt_rand(0, $d[0] - 1);</span><br><span class="line">$r = mysql_query(&quot;SELECT username FROM user LIMIT $rand, 1&quot;);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>三、跟踪调试的时候在对代码进行优化的时候，某些代码可能会被删除或改写，或者为了取得更佳的性能而进行重组，从而使跟踪和调试变得异常困难。</p>
+<li><p>尽可能的使用NOT NULL</p>
 </li>
-</ul>
-<h2 id="编译加速"><a href="#编译加速" class="headerlink" title="编译加速"></a>编译加速</h2><p><code>-pipe</code> 加速编译，使用管道代替编译中临时文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -pipe foo.c -o foo</span><br></pre></td></tr></table></figure></p>
-<p>如果是Makefile的方式，而机器又是多核的，还可以加上<code>-j</code>参数。比如我的机器是8核，那就可以这样加快编译速度。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j8</span><br></pre></td></tr></table></figure>
+<li><p>把IP地址存为UNSIGNED INT</p>
+</li>
+<li><p>固定长度的表会更快.<br>如果表中的所有字段有事“固定长度”的，整个表会被认为是”static”或”fixed-length”。例如，<br>表中没有如下类型的字段”VARCHAR”, “TEXT”, “BLOB”.</p>
+</li>
+</ol>
 
       
 
@@ -259,7 +242,7 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">gcc</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
         		</li>
       		
 		</ul>
@@ -315,7 +298,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://cppmap.com/2017/08/29/gcc-common-options/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://cppmap.com/2017/12/04/mysql_tutorials/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -329,18 +312,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/08/29/qml-develop-guideline/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          QML开发规范
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/29/centos_minimal/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">CentOS最小化安装后配置</div>
+    <a href="/2017/08/29/qml-develop-guideline/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">QML开发规范</div>
       <i class="icon-circle-right"></i>
     </a>
   
